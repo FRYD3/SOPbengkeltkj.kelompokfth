@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOP Bengkel TKJ - Teknik Komputer dan Jaringan</title>
+  <style>
+    :root {
+      --bg-main: #0f172a;
+      --bg-card: #1e293b;
+      --bg-card-hover: #263349;
+      --primary: #38bdf8;
+      --primary-dark: #0284c7;
+      --accent: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAVBAR */
+    header {
+      background-color: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      font-weight: 800;
+      padding: 0.4rem 0.7rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      color: var(--text-main);
+      background-color: var(--bg-card);
+    }
+
+    .nav-btn.active {
+      background-color: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    /* CONTAINER UTAMA */
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HALAMAN BERANDA (HOME) */
+    .hero {
+      background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background-color: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .hero h2 {
+      font-size: 1.2rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-desc {
+      max-width: 720px;
+      margin: 0 auto 2rem auto;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .motto-box {
+      background-color: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #86efac;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      max-width: 650px;
+      margin: 0 auto 2rem auto;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      font-size: 1.05rem;
+    }
+
+    .cta-btn {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .section-heading h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-heading p {
+      color: var(--text-muted);
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .principle-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .principle-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .principle-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      background-color: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .principle-card h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.5px;
+    }
+
+    .principle-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* HALAMAN LANGKAH SOP */
+    .sop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sop-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .sop-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .search-box {
+      width: 100%;
+      max-width: 340px;
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .search-box:focus {
+      border-color: var(--primary);
+    }
+
+    .sop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .sop-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sop-card.danger-card {
+      border-color: rgba(239, 68, 68, 0.45);
+      background: linear-gradient(180deg, rgba(239, 68, 68, 0.08) 0%, var(--bg-card) 100%);
+    }
+
+    .sop-card.warning-card {
+      border-color: rgba(245, 158, 11, 0.45);
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.08) 0%, var(--bg-card) 100%);
+    }
+
+    .sop-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sop-num {
+      background-color: var(--primary);
+      color: #0f172a;
+      font-weight: 800;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.95rem;
+    }
+
+    .danger-card .sop-num {
+      background-color: var(--danger);
+      color: #fff;
+    }
+
+    .warning-card .sop-num {
+      background-color: var(--warning);
+      color: #0f172a;
+    }
+
+    .sop-card-title h3 {
+      font-size: 1.1rem;
+    }
+
+    .sop-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .sop-list li {
+      position: relative;
+      padding-left: 1.35rem;
+      color: #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    .sop-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0.25rem;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .danger-card .sop-list li::before {
+      color: var(--danger);
+    }
+
+    .warning-card .sop-list li::before {
+      color: var(--warning);
+    }
+
+    .back-row {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .secondary-btn {
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+    }
+
+    .secondary-btn:hover {
+      background-color: var(--bg-card-hover);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.65rem; }
+      .hero { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGASI UTAMA -->
+  <header>
+    <div class="nav-container">
+      <a href="#beranda" class="brand" onclick="showPage('beranda')">
+        <span class="brand-badge">TKJ</span>
+        <span class="brand-title">BENGKEL TKJ</span>
+      </a>
+      <nav>
+        <button id="btn-beranda" class="nav-btn active" onclick="showPage('beranda')">Beranda</button>
+        <button id="btn-sop" class="nav-btn" onclick="showPage('sop')">Langkah SOP</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HALAMAN 1: BERANDA (KATA-KATA & PRINSIP BENGKEL TKJ) -->
+    <section id="page-beranda" class="page active">
+      <div class="hero">
+        <span class="hero-tag">TATA TERTIB BENGKEL TKJ</span>
+        <h1>STANDAR OPERASIONAL PROSEDUR (SOP) BENGKEL TKJ</h1>
+        <h2>Teknik Komputer dan Jaringan</h2>
+        <p class="hero-desc">
+          SOP ini dibuat sebagai pedoman bagi siswa, guru, dan petugas dalam menggunakan serta menjaga fasilitas Bengkel TKJ agar kegiatan praktik berjalan dengan aman, tertib, disiplin, dan teratur.
+        </p>
+        <div class="motto-box">
+          "JAGALAH FASILITAS BENGKEL SEPERTI MILIK SENDIRI."
+        </div>
+        <button class="cta-btn" onclick="showPage('sop')">Baca Langkah SOP Bengkel &rarr;</button>
+      </div>
+
+      <div class="section-heading">
+        <h3>Prinsip Utama Bengkel TKJ</h3>
+        <p>DISIPLIN &bull; AMAN &bull; BERTANGGUNG JAWAB</p>
+      </div>
+
+      <div class="principles-grid">
+        <div class="principle-card">
+          <div class="principle-icon">01</div>
+          <h4>DISIPLIN</h4>
+          <p>
+            Mematuhi seluruh tata
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOP Bengkel TKJ - Teknik Komputer dan Jaringan</title>
+  <style>
+    :root {
+      --bg-main: #0f172a;
+      --bg-card: #1e293b;
+      --bg-card-hover: #263349;
+      --primary: #38bdf8;
+      --primary-dark: #0284c7;
+      --accent: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAVBAR */
+    header {
+      background-color: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      font-weight: 800;
+      padding: 0.4rem 0.7rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      color: var(--text-main);
+      background-color: var(--bg-card);
+    }
+
+    .nav-btn.active {
+      background-color: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    /* CONTAINER UTAMA */
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HALAMAN BERANDA (HOME) */
+    .hero {
+      background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background-color: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .hero h2 {
+      font-size: 1.2rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-desc {
+      max-width: 720px;
+      margin: 0 auto 2rem auto;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .motto-box {
+      background-color: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #86efac;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      max-width: 650px;
+      margin: 0 auto 2rem auto;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      font-size: 1.05rem;
+    }
+
+    .cta-btn {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .section-heading h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-heading p {
+      color: var(--text-muted);
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .principle-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .principle-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .principle-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      background-color: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .principle-card h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.5px;
+    }
+
+    .principle-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* HALAMAN LANGKAH SOP */
+    .sop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sop-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .sop-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .search-box {
+      width: 100%;
+      max-width: 340px;
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .search-box:focus {
+      border-color: var(--primary);
+    }
+
+    .sop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .sop-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sop-card.danger-card {
+      border-color: rgba(239, 68, 68, 0.45);
+      background: linear-gradient(180deg, rgba(239, 68, 68, 0.08) 0%, var(--bg-card) 100%);
+    }
+
+    .sop-card.warning-card {
+      border-color: rgba(245, 158, 11, 0.45);
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.08) 0%, var(--bg-card) 100%);
+    }
+
+    .sop-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sop-num {
+      background-color: var(--primary);
+      color: #0f172a;
+      font-weight: 800;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.95rem;
+    }
+
+    .danger-card .sop-num {
+      background-color: var(--danger);
+      color: #fff;
+    }
+
+    .warning-card .sop-num {
+      background-color: var(--warning);
+      color: #0f172a;
+    }
+
+    .sop-card-title h3 {
+      font-size: 1.1rem;
+    }
+
+    .sop-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .sop-list li {
+      position: relative;
+      padding-left: 1.35rem;
+      color: #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    .sop-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0.25rem;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .danger-card .sop-list li::before {
+      color: var(--danger);
+    }
+
+    .warning-card .sop-list li::before {
+      color: var(--warning);
+    }
+
+    .back-row {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .secondary-btn {
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+    }
+
+    .secondary-btn:hover {
+      background-color: var(--bg-card-hover);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.65rem; }
+      .hero { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGASI UTAMA -->
+  <header>
+    <div class="nav-container">
+      <a href="#beranda" class="brand" onclick="showPage('beranda')">
+        <span class="brand-badge">TKJ</span>
+        <span class="brand-title">BENGKEL TKJ</span>
+      </a>
+      <nav>
+        <button id="btn-beranda" class="nav-btn active" onclick="showPage('beranda')">Beranda</button>
+        <button id="btn-sop" class="nav-btn" onclick="showPage('sop')">Langkah SOP</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HALAMAN 1: BERANDA (KATA-KATA & PRINSIP BENGKEL TKJ) -->
+    <section id="page-beranda" class="page active">
+      <div class="hero">
+        <span class="hero-tag">TATA TERTIB BENGKEL TKJ</span>
+        <h1>STANDAR OPERASIONAL PROSEDUR (SOP) BENGKEL TKJ</h1>
+        <h2>Teknik Komputer dan Jaringan</h2>
+        <p class="hero-desc">
+          SOP ini dibuat sebagai pedoman bagi siswa, guru, dan petugas dalam menggunakan serta menjaga fasilitas Bengkel TKJ agar kegiatan praktik berjalan dengan aman, tertib, disiplin, dan teratur.
+        </p>
+        <div class="motto-box">
+          "JAGALAH FASILITAS BENGKEL SEPERTI MILIK SENDIRI."
+        </div>
+        <button class="cta-btn" onclick="showPage('sop')">Baca Langkah SOP Bengkel &rarr;</button>
+      </div>
+
+      <div class="section-heading">
+        <h3>Prinsip Utama Bengkel TKJ</h3>
+        <p>DISIPLIN &bull; AMAN &bull; BERTANGGUNG JAWAB</p>
+      </div>
+
+      <div class="principles-grid">
+        <div class="principle-card">
+          <div class="principle-icon">01</div>
+          <h4>DISIPLIN</h4>
+          <p>
+            Mematuhi seluruh tata
